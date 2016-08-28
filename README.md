@@ -1,0 +1,3 @@
+# nanites
+
+mvc clean package
