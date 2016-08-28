@@ -104,8 +104,8 @@ controllersM.controller('ContactUsController', function($scope, ThetaService){
             if(!message.name){
                 message.name= $scope.$parent.bannerData.USER_DATA.name;
             }
-            if(!message.emailId){
-                message.emailId= $scope.$parent.bannerData.USER_DATA.emailId;
+            if(!message.emailID){
+                message.emailID= $scope.$parent.bannerData.USER_DATA.emailID;
             }   
             ThetaService.core.save({
                     action: "saveMessage"
@@ -153,17 +153,7 @@ controllersM.controller('MessageListController', function($scope, ThetaService, 
         }
     );
     $scope.editMessage = function(editRow){
-        $uibModal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'html/message/summary.html',
-          controller: 'MessageSummaryController',
-          size: 'lg',
-          resolve: {
-            messageId: function () {
-              return editRow.id;
-            }
-          }
-        });
+        alert("Op not implemented!");
     };
     $scope.viewMessage = function(viewRow){ 
         $uibModal.open({
@@ -177,8 +167,9 @@ controllersM.controller('MessageListController', function($scope, ThetaService, 
                 }
             }
         });        
-    };    $scope.deleteMessage = function(deleteRow){ 
-        alert("Op not implemented yet.!");
+    };    
+    $scope.deleteMessage = function(deleteRow){ 
+        alert("Op not implemented!");
     };
     $scope.fetchMessages = function(searchIp){
         ThetaService.message.save({
