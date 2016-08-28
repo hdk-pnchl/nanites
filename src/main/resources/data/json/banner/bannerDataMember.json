@@ -1,0 +1,71 @@
+{
+	"projectData": {
+		"projectName": "Theta",
+		"defaultPath": "/home"	
+	},
+	"navData": {
+		"mainNavData": {
+			"home": {
+				"title": "Home",
+				"active": true,
+				"disabled": false,
+				"hidden": false,
+				"type": "TEXT",
+				"path": "/home"
+			},
+			"complaint": {
+				"title": "Complaint",
+				"active": false,
+				"subNav": [{
+					"title": "New",
+					"active": false,
+					"disabled": false,
+					"hidden": false,
+					"type": "TEXT",
+					"path": "/complaint/new"
+				},{
+					"title": "List",
+					"active": false,
+					"disabled": false,
+					"hidden": false,
+					"type": "TEXT",
+					"path": "/complaint/list"
+				}]
+			},
+			"message": {
+				"title": "Message",
+				"active": false,
+				"disabled": false,
+				"hidden": false,
+				"type": "TEXT",
+				"path": "/message/list"
+			},
+			"aboutUs": {
+				"title": "About Us",
+				"active": false,
+				"disabled": false,
+				"hidden": false,
+				"type": "TEXT",
+				"path": "/aboutUs"
+			},
+			"contactUs": {
+				"title": "Contact Us",
+				"active": false,
+				"disabled": false,
+				"hidden": false,
+				"type": "TEXT",
+				"path": "/contactUs"
+			}
+		}, 
+		"configNavData": {
+			"signOut": {
+				"title": "Sign Out",
+				"active": false,
+				"disabled": false,
+				"hidden": false,
+				"type": "URL",
+				"path": "/theta/logout"
+			}
+		}
+	}
+}

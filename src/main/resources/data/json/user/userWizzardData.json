@@ -1,0 +1,29 @@
+{
+	"formDesc": "User",
+	"isHidden": false,
+	"name": "user",
+	"modalDataObj": "user",
+	"data": {},
+	"fieldAry": [{
+			"name": "name",
+			"label": "Name",
+			"modalData": "user.name",
+			"type": "text"
+		},{
+			"name": "emailId",
+			"label": "EmailId",
+			"modalData": "user.emailID",
+			"type": "email"
+		},{
+			"name": "message",
+			"label": "Query",
+			"modalData": "user.contactNO",
+			"type": "number"
+		},{
+			"name": "reply",
+			"label": "Reply",
+			"modalData": "user.age",
+			"type": "number"
+		}
+	]
+}
