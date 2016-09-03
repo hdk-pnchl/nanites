@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nanites.theta.business.bo.MessageEntity;
 import com.nanites.theta.business.bo.ResponseEntity;
-import com.nanites.theta.business.bo.UserEntity;
-import com.nanites.theta.business.bo.type.ResponseParam;
+import com.nanites.theta.business.bo.user.UserEntity;
 import com.nanites.theta.business.service.impl.MessageServiceImpl;
-import com.nanites.theta.business.service.impl.UserServiceImpl;
+import com.nanites.theta.business.service.impl.user.UserServiceImpl;
+import com.nanites.theta.business.type.response.ResponseParam;
 import com.nanites.theta.business.util.CommonUtil;
 
 @Controller

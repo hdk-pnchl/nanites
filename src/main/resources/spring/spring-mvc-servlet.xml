@@ -49,5 +49,5 @@
 	
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></bean>
 	
-	<bean id="userService" class="com.nanites.theta.business.service.impl.UserServiceImpl"></bean>
+	<bean id="userService" class="com.nanites.theta.business.service.impl.user.UserServiceImpl"></bean>
 </beans>

@@ -13,11 +13,11 @@
             <div class="wrap">
                 <p class="form-title">Start Here</p>
                 <form class="login">
-                    <input type="text" required="required" placeholder="Name" ng-model="user.name">
-                    <input type="email" placeholder="Email" ng-model="user.emailID">
-                    <input type="password" placeholder="Password" ng-model="user.password">
-                    <input type="password" placeholder="Confirm password" ng-model="user.confirmPassword">
-                    <input type="number" placeholder="Contact No." ng-model="user.contactNo">
+                    <input type="text" required="required" placeholder="Name" ng-model="user.basicDetail.name">
+                    <input type="email" placeholder="Email" ng-model="user.basicDetail.emailID">
+                    <input type="password" placeholder="Password" ng-model="user.basicDetail.password">
+                    <input type="password" placeholder="Confirm password" ng-model="user.basicDetail.confirmPassword">
+                    <input type="number" placeholder="Contact No." ng-model="user.basicDetail.contactNo">
 
                     <input type="submit" value="Play" class="btn btn-success btn-sm" ng-click="signUp()"/>
                     <div class="remember-forgot">

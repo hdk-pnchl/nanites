@@ -1,4 +1,4 @@
-package com.nanites.theta.web.controller;
+package com.nanites.theta.web.controller.user;
 
 import java.io.IOException;
 
@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.nanites.theta.business.bo.AddressEntity;
 import com.nanites.theta.business.bo.ResponseEntity;
-import com.nanites.theta.business.service.impl.AddressServiceImpl;
+import com.nanites.theta.business.bo.user.AddressEntity;
+import com.nanites.theta.business.bo.user.UserEntity;
+import com.nanites.theta.business.service.impl.user.AddressServiceImpl;
 
 @Controller
 @RequestMapping("/user/address")
@@ -37,26 +38,22 @@ public class AddressController {
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity save(@RequestBody AddressEntity address, @RequestParam("userID") long userID) {
-		logger.info("["+userID+"]: "+address);
-		address = addressService.save(address, userID);
-		ResponseEntity response = new ResponseEntity();
-		response.setResponseEntity(address);
-		return response;
+		logger.info("[" + userID + "]: " + address);
+		UserEntity user = addressService.save(address, userID);
+		return ResponseEntity.builder().responseEntity(user).build();
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity update(@RequestBody AddressEntity address, @RequestParam("userID") long userID) {
-		logger.info("["+userID+"]: "+address);
-		ResponseEntity response = new ResponseEntity();
-		address = addressService.update(address, userID);
-		response.setResponseEntity(address);
-		return response;
+		logger.info("[" + userID + "]: " + address);
+		UserEntity user = addressService.update(address, userID);
+		return ResponseEntity.builder().responseEntity(user).build();
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public @ResponseBody AddressEntity get(@RequestParam("addressId") long addressId) {
-		logger.info("["+addressId+"]");
-		AddressEntity address = addressService.get(addressId);
+	public @ResponseBody AddressEntity get(@RequestParam("addressID") long addressID) {
+		logger.info("[" + addressID + "]");
+		AddressEntity address = addressService.get(addressID);
 		return address;
 	}
 }

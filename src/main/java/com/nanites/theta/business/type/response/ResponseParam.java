@@ -1,4 +1,4 @@
-package com.nanites.theta.business.bo.type;
+package com.nanites.theta.business.type.response;
 
 public enum ResponseParam {
 	ERROR_MSG("ERROR_MSG"), 

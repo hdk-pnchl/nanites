@@ -1,4 +1,4 @@
-package com.nanites.theta.business.service.impl;
+package com.nanites.theta.business.service.impl.user;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,10 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nanites.theta.business.bo.RoleEntity;
-import com.nanites.theta.business.bo.UserEntity;
-import com.nanites.theta.business.bo.type.Roles;
-import com.nanites.theta.business.dao.impl.UserDAOImpl;
+import com.nanites.theta.business.bo.user.BasicDetailEntity;
+import com.nanites.theta.business.bo.user.RoleEntity;
+import com.nanites.theta.business.bo.user.UserEntity;
+import com.nanites.theta.business.dao.impl.user.UserDAOImpl;
+import com.nanites.theta.business.type.bo.user.Roles;
 import com.nanites.theta.business.util.SearchInput;
 
 @Service
@@ -82,7 +83,8 @@ public class UserServiceImpl implements UserDetailsService {
 	}
 	
 	private User buildUserForAuthentication(UserEntity user, List<GrantedAuthority> authorities) {
-		return new User(user.getEmailID(), user.getPassword(), user.isAccountEnabled(), user.isAccountExpired(), user.isAccountCredentialsExpired(),
+		BasicDetailEntity basicDetail= user.getBasicDetail();
+		return new User(basicDetail.getEmailID(), basicDetail.getPassword(), user.isAccountEnabled(), user.isAccountExpired(), user.isAccountCredentialsExpired(),
 				user.isAccountLocked(), authorities);
 	}
 	

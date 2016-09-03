@@ -8,8 +8,10 @@ controllersM.controller('CoreController', function($scope, $http, $location, $ro
         }, 
         function(response){
             $scope.bannerData= response;
-            //$scope.$parent.bannerData.navData.configNavData.signUp.controller= signUpCtrlFn;
-            //$scope.$parent.bannerData.navData.configNavData.signIn.controller= function($scope){};
+            if($scope.bannerData.navData.configNavData.profile){
+                $scope.bannerData.navData.configNavData.profile.title= $scope.bannerData.USER_DATA.basicDetail.name;
+                $scope.bannerData.navData.configNavData.profile.subNav.user.path= $scope.bannerData.navData.configNavData.profile.subNav.user.path+"/update/"+$scope.bannerData.USER_DATA.id;                
+            }
         }, 
         function(){ 
             alert('getBannerData failed');
@@ -45,14 +47,14 @@ controllersM.controller('SignUpController', function($scope, $location, ThetaSer
     $scope.isEmailTaken= false;
     $scope.isPasswordMatching= true;
     $scope.signUp= function(){
-        if($scope.user.password != $scope.user.confirmPassword){
+        if($scope.user.basicDetail.password != $scope.user.basicDetail.confirmPassword){
             $scope.isPasswordMatching= false;
         }else{
             $scope.isPasswordMatching= true;
             //server call: check if email id not already taken
             ThetaService.core.save({
                     action: "isEmailIdTaken",
-                    emailID: $scope.user.emailID
+                    emailID: $scope.user.basicDetail.emailID
                 },{},
                 function(response){
                     if(response && response.isEmailIdTaken){
@@ -83,7 +85,8 @@ controllersM.controller('SignUpController', function($scope, $location, ThetaSer
 //------------------------------------SignIN
 
 controllersM.controller('SignInController', function($scope, $route, $routeParams, $location){
-    $scope.signIp= function(){
+    if($routeParams.error){
+        alert("Please enter valid Credentials!");
     }
 });
 
@@ -102,10 +105,10 @@ controllersM.controller('ContactUsController', function($scope, ThetaService){
         $scope.alerts= [];
         if(message){
             if(!message.name){
-                message.name= $scope.$parent.bannerData.USER_DATA.name;
+                message.name= $scope.$parent.bannerData.USER_DATA.basicDetail.name;
             }
             if(!message.emailID){
-                message.emailID= $scope.$parent.bannerData.USER_DATA.emailID;
+                message.emailID= $scope.$parent.bannerData.USER_DATA.basicDetail.emailID;
             }   
             ThetaService.core.save({
                     action: "saveMessage"
@@ -131,7 +134,7 @@ controllersM.controller('ContactUsController', function($scope, ThetaService){
     };
 });
 
-//------------------------------------Message
+//------------------------------------MESSAGE
 
 controllersM.controller('MessageListController', function($scope, ThetaService, $uibModal){
     ThetaService.message.query({
@@ -333,8 +336,6 @@ controllersM.controller('ComplaintFormController', function($scope, ThetaService
     };
 });
 
-//------------------------------------Add Patient
-
 controllersM.controller('ComplaintController', function($scope, $route, $routeParams, $location, $http, ThetaService){
     ThetaService.complaint.get({
             action: "getWizzardData"
@@ -504,43 +505,103 @@ controllersM.controller('UserListController', function($scope, $location, $uibMo
     };
 });
 
-controllersM.controller('UserController', function($scope, ThetaService, $routeParams){
-    $scope.userData= {};
+controllersM.controller('UserController', function($scope, ThetaService, $routeParams, $location){
     ThetaService.user.get({
-        action: "getFormData"
-    }, function(userFormResp){
-        $scope.userData= userFormResp;
-        if($routeParams.userID){
-            ThetaService.user.get({
-                action: "get",
-                userID: $routeParams.userID
-            }, function(userResp){
-                $scope.userData.data= userResp.responseEntity;
-            }, function(){
-                alert("User get failure");
-            });
-        }
-    }, function(){
-        alert("getFormData get failure");
-    });
-
-    $scope.update = function(data){
-        ThetaService.user.save({
-            action: "update"
+            action: "getWizzardData"
         }, 
-        data,
-        function(userResp){
-            alert("User updated :)");
-        }, function(){
-            alert("User updated failure");
-        });        
+        function(response){
+            $scope.userWizzard= response;
+            $scope.userDetail= {};
+            if($routeParams.userID){
+                 ThetaService.user.get({
+                    action: "get",
+                    userID: $routeParams.userID
+                }, function(userDataResp){
+                    $scope.userDetail= userDataResp.responseEntity;
+                    angular.forEach($scope.userWizzard.wizzardData, function(formIpData, formName){
+                        formIpData.data= $scope.userDetail[formName];
+                    });
+                }, function(){
+                    alert("User get failure");
+                });
+            }else{
+                angular.forEach($scope.userWizzard.wizzardData, function(formIpData, formName){
+                    $scope.userDetail[formName]= {};
+                    angular.forEach(formIpData.fieldAry, function(field){
+                        $scope.userDetail[formName][field.name]= "";
+                    });
+                    formIpData.data= $scope.userDetail[formName];
+                });
+            }
+            $scope.userDetail.isReady= true;
+        }, 
+        function(){ 
+            alert('User getWizzardData failure');
+        }
+    );  
+ 
+    $scope.selectWizzardStep= function(selectedWizzardStep){
+        angular.forEach($scope.userWizzard.wizzardStepData, function(wizzardStep){
+            wizzardStep.active= false;
+            wizzardStep.class= '';
+        });    
+        selectedWizzardStep.active= true;
+        selectedWizzardStep.class= 'active';
+
+        angular.forEach($scope.userWizzard.wizzardData, function(value, key){
+            value.isHidden = true;
+        });    
+        $scope.userWizzard.wizzardData[selectedWizzardStep.name].isHidden=false;
+    };
+ 
+    $scope.isLastStep= function(step) {
+       if(step == $scope.userWizzard.commonData.lastStep){
+            return true;
+       }
+       return false;
+    }
+
+    $scope.submitUser = function(userDataType, userData){
+        var service= ThetaService[userDataType];
+        var action= "save";
+        if($scope.userDetail[userDataType] && $scope.userDetail[userDataType].id){
+            action= "update";
+            userData["id"]= $scope.userDetail[userDataType]["id"];
+        }
+        //server call
+        service.save({
+                action: action,
+                userID: $scope.userDetail.id
+            }, 
+            userData, 
+            function(persistedUserData){
+                if(persistedUserData.responseData && persistedUserData.responseData.ERROR_MSG){
+                    alert(persistedUserData.responseData.ERROR_MSG);
+                }else{
+                    $scope.userDetail= persistedUserData.responseEntity;
+                    if($scope.isLastStep(userDataType)){
+                        alert("Thank you for sharing your information. Your information is safe with duel-encryption and only you who can see it. Now, go ahead any file a complain!");
+                        //$location.path($scope.$parent.bannerData.navData.mainNavData.user.subNav[0].path);
+                    }else{
+                        //mark current step as complete
+                        var currentWizzardStep= $scope.userWizzard.wizzardStepData[userDataType];
+                        currentWizzardStep.submitted= true;
+                        //move to next step in the wizzard
+                        $scope.selectWizzardStep($scope.userWizzard.wizzardStepData[currentWizzardStep.next]);
+                    }
+                }
+            },
+            function(){
+                alert("User save failure");
+            }
+        );
     };
 });
 
 controllersM.controller('UserSummaryController', function($scope, ThetaService, userID){
     $scope.userDetail= {};
     if(userID){
-         ThetaService.complaint.get({
+         ThetaService.user.get({
             action: "get",
             userID: userID
         }, function(userDataResp){
@@ -549,4 +610,14 @@ controllersM.controller('UserSummaryController', function($scope, ThetaService, 
             alert("User get failure");
         });
     }
+});
+
+controllersM.controller('ChangePasswordController', function($scope, ThetaService){
+});
+
+
+//------------------------------------PROFILE
+
+controllersM.controller('ProfileController', function($scope, $route, $routeParams, $location){
+
 });

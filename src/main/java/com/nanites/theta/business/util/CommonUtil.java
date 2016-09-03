@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.nanites.theta.business.bo.type.Roles;
+import com.nanites.theta.business.type.bo.user.Roles;
 
 public class CommonUtil {
 	protected static AtomicReference<Long> currentTime = new AtomicReference<>(System.currentTimeMillis());

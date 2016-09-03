@@ -13,7 +13,7 @@ thetaM.config(['$routeProvider', function($routeProvider){
 
 	//aboutUs
 	$routeProvider.when('/aboutUs', {
-		templateUrl: 'html/core/home/words.html',
+		templateUrl: 'html/core/aboutUs_words.html',
 		controller: 'AboutUsController'
 	});
 
@@ -28,10 +28,14 @@ thetaM.config(['$routeProvider', function($routeProvider){
 	});
 
 	//singIn
-	$routeProvider.when('/singIn', {
+	$routeProvider.when('/signIn', {
 		templateUrl: 'html/core/signIn_002.html',
 		controller: 'SignInController'
 	});
+	$routeProvider.when('/signIn/:error', {
+		templateUrl: 'html/core/signIn_002.html',
+		controller: 'SignInController'
+	});	
 
 	//signUp
 	$routeProvider.when('/signUp', {
@@ -80,6 +84,10 @@ thetaM.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'html/user/list.html',
 		controller: 'UserListController'
 	});
+	$routeProvider.when('/user', {
+		templateUrl: 'html/user/user.html',
+		controller: 'UserController'
+	});		
 	$routeProvider.when('/user/new', {
 		templateUrl: 'html/user/user.html',
 		controller: 'UserController'
@@ -91,6 +99,10 @@ thetaM.config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/user/summary/:userID', {
 		templateUrl: 'html/user/summary.html',
 		controller: 'UserSummaryController'
+	});
+	$routeProvider.when('/user/changePassword', {
+		templateUrl: 'html/user/changePassword.html',
+		controller: 'ChangePasswordController'
 	});
 
 	//otherwise

@@ -72,13 +72,39 @@
 			}
 		}, 
 		"configNavData": {
-			"signOut": {
-				"title": "Sign Out",
+			"profile": {
+				"title": "Welcome",
 				"active": false,
-				"disabled": false,
-				"hidden": false,
-				"type": "URL",
-				"path": "/theta/logout"
+				"subNav": {
+					"user": {
+						"title": "Profile",
+						"active": false,
+						"disabled": false,
+						"hidden": false,
+						"type": "TEXT",
+						"path": "/user"
+					},
+					"changePassword": {
+						"title": "Change Password",
+						"active": false,
+						"disabled": false,
+						"hidden": false,
+						"type": "TEXT",
+						"path": "/user/changePassword"
+					},	
+					"divider": {
+						"type": "divider",
+						"isDivider": "true"
+					},						
+					"logout": {
+						"title": "Sign Out",
+						"active": false,
+						"disabled": false,
+						"hidden": false,
+						"type": "URL",
+						"path": "/theta/logout"
+					}
+				}
 			}
 		}
 	}

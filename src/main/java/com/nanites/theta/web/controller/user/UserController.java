@@ -1,4 +1,4 @@
-package com.nanites.theta.web.controller;
+package com.nanites.theta.web.controller.user;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nanites.theta.business.bo.ResponseEntity;
-import com.nanites.theta.business.bo.UserEntity;
-import com.nanites.theta.business.bo.type.ResponseParam;
-import com.nanites.theta.business.service.impl.UserServiceImpl;
+import com.nanites.theta.business.bo.user.UserEntity;
+import com.nanites.theta.business.service.impl.user.UserServiceImpl;
+import com.nanites.theta.business.type.response.ResponseParam;
 import com.nanites.theta.business.util.CommonUtil;
 import com.nanites.theta.business.util.SearchInput;
 
@@ -131,12 +131,12 @@ public class UserController implements ResourceLoaderAware{
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/getFormData", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> getFormData() throws IOException {
+	@RequestMapping(value = "/getWizzardData", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getWizzardData() throws IOException {
 		Resource messageFormData = this.resourceLoader.getResource("classpath:data/json/user/userWizzardData.json");
 		Map<String, Object> messageFormDataMap = objectMapper.readValue(messageFormData.getFile(), Map.class);
 		logger.info("getMessageFormData: " + messageFormDataMap);
 		
 		return messageFormDataMap;
-	}	
+	}		
 }

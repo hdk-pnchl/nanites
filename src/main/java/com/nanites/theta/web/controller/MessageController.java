@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nanites.theta.business.bo.MessageEntity;
 import com.nanites.theta.business.bo.ResponseEntity;
-import com.nanites.theta.business.bo.type.ResponseParam;
 import com.nanites.theta.business.service.impl.MessageServiceImpl;
+import com.nanites.theta.business.type.response.ResponseParam;
 import com.nanites.theta.business.util.CommonUtil;
 import com.nanites.theta.business.util.SearchInput;
 

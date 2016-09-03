@@ -1,4 +1,4 @@
-package com.nanites.theta.business.bo;
+package com.nanites.theta.business.bo.user;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nanites.theta.business.bo.type.Sex;
-import com.nanites.theta.business.util.CommonUtil;
 
 @Entity
 @Table
@@ -29,21 +27,25 @@ public class UserEntity implements Serializable {
 	private static final long serialVersionUID = -1457413248383951436L;
 	
 	// instance
-
+	
 	@Id
 	@GeneratedValue
 	private long id;
-	private String name;
-	private String emailID;
-	private String password;
-	private long regNO;
-	private int contactNO;
-
-	private int age;
-	private Sex sex;
-	private boolean isMarried;
-	private String education;
-	private String occupation;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private BasicDetailEntity basicDetail = new BasicDetailEntity();
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private EducationEntity education = new EducationEntity();
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private OccupationEntity occupation = new OccupationEntity();
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private AddressEntity address = new AddressEntity();
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private IDDetailEntity idDetail = new IDDetailEntity();
 	
 	private Date createdOn = new Date();
 	private Date lastUpdatedOn = new Date();
@@ -53,30 +55,18 @@ public class UserEntity implements Serializable {
 	private boolean isAccountEnabled = true;
 	private boolean isAccountCredentialsExpired = true;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-	private AddressEntity address;
-	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "roleID"))
 	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
 	
 	//constructor
-
-	public UserEntity() {
-		this.populateRegNo();
-	}
 	
-	/**
-	 * This should not be used from anywhere other then BasicDetailEntity
-	 * constructor
-	 */
-	private void populateRegNo() {
-		this.setRegNO(CommonUtil.nextRegNo());
+	public UserEntity() {
 	}
 	
 	// setter-getter
-
+	
 	public long getId() {
 		return id;
 	}
@@ -85,75 +75,19 @@ public class UserEntity implements Serializable {
 		this.id = id;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getEmailID() {
-		return emailID;
-	}
-	
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public long getRegNO() {
-		return regNO;
-	}
-	
-	public void setRegNO(long regNO) {
-		this.regNO = regNO;
-	}
-	
-	public int getAge() {
-		return age;
-	}
-	
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
-	public Sex getSex() {
-		return sex;
-	}
-	
-	public void setSex(Sex sex) {
-		this.sex = sex;
-	}
-	
-	public boolean isMarried() {
-		return isMarried;
-	}
-	
-	public void setMarried(boolean isMarried) {
-		this.isMarried = isMarried;
-	}
-	
-	public String getEducation() {
+	public EducationEntity getEducation() {
 		return education;
 	}
 	
-	public void setEducation(String education) {
+	public void setEducation(EducationEntity education) {
 		this.education = education;
 	}
 	
-	public String getOccupation() {
+	public OccupationEntity getOccupation() {
 		return occupation;
 	}
 	
-	public void setOccupation(String occupation) {
+	public void setOccupation(OccupationEntity occupation) {
 		this.occupation = occupation;
 	}
 	
@@ -188,45 +122,53 @@ public class UserEntity implements Serializable {
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
 	}
-
+	
 	public boolean isAccountExpired() {
 		return isAccountExpired;
 	}
-
+	
 	public void setAccountExpired(boolean isAccountExpired) {
 		this.isAccountExpired = isAccountExpired;
 	}
-
+	
 	public boolean isAccountLocked() {
 		return isAccountLocked;
 	}
-
+	
 	public void setAccountLocked(boolean isAccountLocked) {
 		this.isAccountLocked = isAccountLocked;
 	}
-
+	
 	public boolean isAccountEnabled() {
 		return isAccountEnabled;
 	}
-
+	
 	public void setAccountEnabled(boolean isAccountEnabled) {
 		this.isAccountEnabled = isAccountEnabled;
 	}
-
+	
 	public boolean isAccountCredentialsExpired() {
 		return isAccountCredentialsExpired;
 	}
-
+	
 	public void setAccountCredentialsExpired(boolean isAccountCredentialsExpired) {
 		this.isAccountCredentialsExpired = isAccountCredentialsExpired;
 	}
-
-	public int getContactNO() {
-		return contactNO;
+	
+	public IDDetailEntity getIdDetail() {
+		return idDetail;
 	}
-
-	public void setContactNO(int contactNO) {
-		this.contactNO = contactNO;
+	
+	public void setIdDetail(IDDetailEntity idDetail) {
+		this.idDetail = idDetail;
+	}
+	
+	public BasicDetailEntity getBasicDetail() {
+		return basicDetail;
+	}
+	
+	public void setBasicDetail(BasicDetailEntity basicDetail) {
+		this.basicDetail = basicDetail;
 	}
 	
 	// override

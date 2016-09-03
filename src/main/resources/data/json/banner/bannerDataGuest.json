@@ -48,7 +48,7 @@
 				"disabled": false,
 				"hidden": false,
 				"type": "TEXT",
-				"path": "/singIn",
+				"path": "/signIn",
 				"modalSize": "lg",
 				"html": "html/core/signIn.html",
 				"controller": "SignInController"

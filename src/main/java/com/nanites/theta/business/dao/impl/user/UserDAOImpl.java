@@ -1,4 +1,4 @@
-package com.nanites.theta.business.dao.impl;
+package com.nanites.theta.business.dao.impl.user;
 
 import java.util.List;
 
@@ -8,7 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nanites.theta.business.bo.UserEntity;
+import com.nanites.theta.business.bo.user.UserEntity;
+import com.nanites.theta.business.dao.impl.AbstractDAO;
 import com.nanites.theta.business.util.SearchInput;
 
 @Repository
@@ -16,6 +17,13 @@ import com.nanites.theta.business.util.SearchInput;
 public class UserDAOImpl extends AbstractDAO {
 	public UserEntity save(UserEntity user) {
 		this.getSession().save(user);
+		
+		user.getBasicDetail().setUser(user);
+		user.getAddress().setUser(user);
+		user.getEducation().setUser(user);
+		user.getIdDetail().setUser(user);
+		user.getOccupation().setUser(user);
+		
 		return user;
 	}
 	
@@ -36,8 +44,9 @@ public class UserDAOImpl extends AbstractDAO {
 	public UserEntity get(String emailID) {
 		UserEntity user = null;
 		Criteria criteria = getSession().createCriteria(UserEntity.class);
+		Criteria innerCriteria = criteria.createCriteria("basicDetail");
 		if(emailID != null) {
-			criteria.add(Restrictions.eq("emailID", emailID));
+			innerCriteria.add(Restrictions.eq("emailID", emailID));
 		}
 		Object userObject = criteria.uniqueResult();
 		if(userObject != null) {

@@ -1,4 +1,4 @@
-package com.nanites.theta.business.dao.impl;
+package com.nanites.theta.business.dao.impl.user;
 
 import java.util.List;
 
@@ -6,8 +6,9 @@ import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nanites.theta.business.bo.RoleEntity;
-import com.nanites.theta.business.bo.UserEntity;
+import com.nanites.theta.business.bo.user.RoleEntity;
+import com.nanites.theta.business.bo.user.UserEntity;
+import com.nanites.theta.business.dao.impl.AbstractDAO;
 
 @Repository
 @Transactional

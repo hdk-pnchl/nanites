@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.nanites.theta.business.bo.user.UserEntity;
+
 @Entity
 @Table
 public class ComplaintEntity implements Serializable {

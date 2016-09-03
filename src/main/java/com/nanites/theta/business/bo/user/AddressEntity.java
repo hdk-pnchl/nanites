@@ -1,4 +1,4 @@
-package com.nanites.theta.business.bo;
+package com.nanites.theta.business.bo.user;
 
 import java.io.Serializable;
 

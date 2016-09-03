@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nanites.theta.business.bo.MessageEntity;
-import com.nanites.theta.business.bo.type.ResponseParam;
+import com.nanites.theta.business.type.response.ResponseParam;
 import com.nanites.theta.business.util.SearchInput;
 
 @Repository

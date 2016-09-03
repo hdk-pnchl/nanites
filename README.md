@@ -3,6 +3,7 @@
 0.
 	Domain mapping
 		www.complainkaro.com ---> http://104.238.126.194:8080/theta/static
+		
 1.
 	Message
 		Message will be a thread. Its will contain a subject.
@@ -27,7 +28,7 @@
 		Create 1 type of complaint
 
 6.
-	Singup/Singin
+	SignUp/SignIn
 		Send welcome mail on signup
 		Implement forgot password
 		Way for consumer to update his info i.e. name, password, address

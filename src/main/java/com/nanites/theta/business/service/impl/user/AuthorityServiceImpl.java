@@ -1,4 +1,4 @@
-package com.nanites.theta.business.service.impl;
+package com.nanites.theta.business.service.impl.user;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nanites.theta.business.bo.RoleEntity;
-import com.nanites.theta.business.bo.UserEntity;
-import com.nanites.theta.business.bo.type.Roles;
-import com.nanites.theta.business.dao.impl.AuthorityDAOImpl;
+import com.nanites.theta.business.bo.user.RoleEntity;
+import com.nanites.theta.business.bo.user.UserEntity;
+import com.nanites.theta.business.dao.impl.user.AuthorityDAOImpl;
+import com.nanites.theta.business.type.bo.user.Roles;
 
 @Service
 @Transactional
 public class AuthorityServiceImpl implements InitializingBean {
 	
 	@Autowired
-	AuthorityDAOImpl authorityDAO;
+	private AuthorityDAOImpl authorityDAO;
 	
 	private Map<Roles, RoleEntity> authorityMap = new HashMap<Roles, RoleEntity>();
 	
